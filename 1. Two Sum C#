@@ -152,7 +152,7 @@ public int[] TwoSum(int[] nums, int target)
     }
     AC！！！
     精髓了，可以放在一个循环里面做完添加map和判断是否存在的操作
-    但是要注意：一定要先查找在不在然后再添加元素，先添加就会报错
+    但是要注意：一定要先查找在不在然后再添加元素，先添加就会报错，比如下面这样：
         
 public int[] TwoSum(int[] nums, int target)
     {
