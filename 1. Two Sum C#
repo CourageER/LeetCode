@@ -1,3 +1,12 @@
+Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+Example:
+Given nums = [2, 7, 11, 15], target = 9,
+
+Because nums[0] + nums[1] = 2 + 7 = 9,
+return [0, 1].
+
 public class Solution {
 public int[] TwoSum(int[] nums, int target)
         {
@@ -10,7 +19,7 @@ public int[] TwoSum(int[] nums, int target)
                 {
                     if (temp == nums[j])
                     {
-                        result.Add(j);
+                        result.Add(j);//Add要大写
                         return result.ToArray();//多此一举
                     }
                 }
@@ -18,6 +27,7 @@ public int[] TwoSum(int[] nums, int target)
             return new int[1];
         }
 不需要在外面创建新数组
+TLE
 
 public int[] TwoSum(int[] nums, int target)
         {
@@ -36,6 +46,7 @@ public int[] TwoSum(int[] nums, int target)
         }
         比上面一种，只需要在找到并返回的时候创建数组就行了
         但是时间复杂度是O(N平方)，超时了
+        TLE
         
 public int[] TwoSum(int[] nums, int target)
         {
@@ -68,7 +79,7 @@ public int[] TwoSum(int[] nums, int target)
             {
                 if (dic.ContainsKey(nums[i]))
                 {
-                    continue;
+                    continue;//判断是否存在
                 }
                 dic.Add(nums[i], i);
             }
@@ -100,7 +111,7 @@ public int[] TwoSum(int[] nums, int target)
                 {
                     continue;
                 }
-                dic.Add(nums[i], i);
+                dic.Add(nums[i], i);//Add要大写
             }
             for (int j = 0; j < nums.Count(); j++)
             {
@@ -111,3 +122,60 @@ public int[] TwoSum(int[] nums, int target)
             }
                 return new int[1];
         }
+        //AC了！！！
+        //为什么这个能过[3,3]和6的测试用例呢？？？
+        因为最终出结果的是在第二个循环里，在第二个循环里元素重复并没有关系
+        整理map的时候需要排重，虽然map里排除了，但是遍历nums的时候是把每个元素都遍历到的，关键在第二个循环里
+       
+       
+public int[] TwoSum(int[] nums, int target)
+    {
+        Dictionary<int, int> dic = new Dictionary<int, int>();
+            for (int j = 0; j < nums.Count(); j++)
+            {
+                //if (dic.ContainsKey(nums[j]))
+                //{
+                //    continue;
+                //}
+                //dic.Add(nums[j], j);
+                if (dic.ContainsKey(target - nums[j]) && dic[target - nums[j]] != j)
+                {
+                    return new int[] { j, dic[target - nums[j]] };
+                }
+                if (dic.ContainsKey(nums[j]))
+                {
+                    continue;
+                }
+                dic.Add(nums[j], j);
+            }
+            return new int[1];
+    }
+    AC！！！
+    精髓了，可以放在一个循环里面做完添加map和判断是否存在的操作
+    但是要注意：一定要先查找在不在然后再添加元素，先添加就会报错
+        
+public int[] TwoSum(int[] nums, int target)
+    {
+        Dictionary<int, int> dic = new Dictionary<int, int>();
+            for (int j = 0; j < nums.Count(); j++)
+            {
+                if (dic.ContainsKey(nums[j]))
+                {
+                    continue;
+                }
+                dic.Add(nums[j], j);
+                if (dic.ContainsKey(target - nums[j]) && dic[target - nums[j]] != j)
+                {
+                    return new int[] { j, dic[target - nums[j]] };
+                }
+            }
+            return new int[1];
+    }
+Input:
+[3,3]
+6
+Output:
+[0]
+Expected:
+[0,1]
+        
