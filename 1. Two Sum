@@ -1,5 +1,5 @@
 public class Solution {
- public int[] TwoSum(int[] nums, int target)
+public int[] TwoSum(int[] nums, int target)
         {
             for (int i = 0; i < nums.Count(); i++)
             {
@@ -17,9 +17,9 @@ public class Solution {
             }
             return new int[1];
         }
-}
+不需要在外面创建新数组
 
- public int[] TwoSum(int[] nums, int target)
+public int[] TwoSum(int[] nums, int target)
         {
             for (int i = 0; i < nums.Count(); i++)
             {
@@ -34,8 +34,10 @@ public class Solution {
             }
             return new int[1];
         }
+        比上面一种，只需要在找到并返回的时候创建数组就行了
+        但是时间复杂度是O(N平方)，超时了
         
- public int[] TwoSum(int[] nums, int target)
+public int[] TwoSum(int[] nums, int target)
         {
             Dictionary<int, int> dic = new Dictionary<int, int>();
             for (int i = 0; i < nums.Count(); i++)
@@ -57,3 +59,34 @@ Line 7: System.ArgumentException: An item with the same key has already been add
 Last executed input:
 [3,3]
 6
+Dic里不能添加相同的key,需要判断一下是否存在
+
+public int[] TwoSum(int[] nums, int target)
+        {
+            Dictionary<int, int> dic = new Dictionary<int, int>();
+            for (int i = 0; i < nums.Count(); i++)
+            {
+                if (dic.ContainsKey(nums[i]))
+                {
+                    continue;
+                }
+                dic.Add(nums[i], i);
+            }
+            for (int j = 0; j < nums.Count(); j++)
+            {
+                if (dic.ContainsKey(target - nums[j]))
+                {
+                    return new int[] {j, dic[target - nums[j]]};
+                }
+            }
+                return new int[1];
+        }
+        Your input
+
+[3,2,4]
+6
+Your answer
+[0,0]
+Expected answer
+[1,2]
+要检查当前循环不能是自己的这个位置
