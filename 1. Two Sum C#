@@ -28,7 +28,7 @@ public int[] TwoSum(int[] nums, int target)
                 {
                     if (temp == nums[j])
                     {
-                        return new int[]{i,j};
+                        return new int[]{i,j};//返回的时候直接创建数组就行
                     }
                 }
             }
