@@ -1,5 +1,5 @@
 public class Solution {
-    public int[] TwoSum(int[] nums, int target)
+ public int[] TwoSum(int[] nums, int target)
         {
             for (int i = 0; i < nums.Count(); i++)
             {
@@ -33,6 +33,24 @@ public class Solution {
                 }
             }
             return new int[1];
+        }
+        
+ public int[] TwoSum(int[] nums, int target)
+        {
+            Dictionary<int, int> dic = new Dictionary<int, int>();
+            for (int i = 0; i < nums.Count(); i++)
+            {
+                dic.Add(nums[i], i);
+
+            }
+            for (int j = 0; j < nums.Count(); j++)
+            {
+                if (dic.ContainsKey(target - nums[j]))
+                {
+                    return new int[] {j, dic[target - nums[j]]};
+                }
+            }
+                return new int[1];
         }
 Runtime Error Message:
 Line 7: System.ArgumentException: An item with the same key has already been added.
